@@ -4,11 +4,11 @@
 struct Pessoa // Cria uma STRUCT para armazenar os dados de uma pessoa
 {
     float peso;   // define o campo Peso
-    float altura;    // define o campo Idade
-    char nome[255]; // define o campo Altura
+    float altura;    // define o campo Altura
+    char nome[255]; // define o campo Nome
 } ; // Define o nome do novo tipo criado
 
-void IMC(float altura, float peso){
+void IMC(float altura, float peso){ // Função que irá calcular o IMC do usuário com base nos parâmetros informados
     float imc;
     imc = peso /(altura*altura);
     printf("Seu IMC é: %.2f", imc);
