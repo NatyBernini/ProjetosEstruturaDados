@@ -1,0 +1,4 @@
+// PONTEIROS
+- Para acessar o endereço de memória do ponteiro -> a;
+- Para acessar o valor do ponteiro -> *a; 
+- Para acessar o endereço de memória de uma variável -> &a;
