@@ -2,3 +2,6 @@
 - Para acessar o endereço de memória do ponteiro -> a;
 - Para acessar o valor do ponteiro -> *a; 
 - Para acessar o endereço de memória de uma variável -> &a;
+
+// TAD
+Não há TAD sem uma estrutura de dados com as suas operações, ou seja, para existir um TAD é obrigatório a presença desses dois elementos.
