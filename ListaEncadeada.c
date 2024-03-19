@@ -70,12 +70,26 @@ void remover(TipoLista *lista, int id){
     }
 }
 
-int buscar(TipoLista lista, int id){
+int buscar(TipoLista lista, int id){ // Função que retorna a posição do item
     apontador aux;
     aux = lista.primeiro->prox;
     while(aux!=NULL){
         if(aux->item.id == id)
-            return 1;
+            return aux;
+        aux = aux->prox;
+    }
+    return 0;
+}
+
+
+int buscarAnterior(TipoLista lista, int id){ // Função que retorna o anterior de um item
+    apontador aux, anterior;
+    aux = lista.primeiro->prox;
+    anterior = lista.primeiro;
+    while(aux!=NULL){
+        if(aux->item.id == id)
+            return anterior;
+        anterior = aux;
         aux = aux->prox;
     }
     return 0;
@@ -115,7 +129,7 @@ void TrocaItem(TipoLista *lista, int id_1, int id_2){
 }
 
 // Função para inserir um novo item na posição indicada
-void inserirPosicao(TipoLista *lista, int id, int id_novo) {
+void inserirPosicaoAnt(TipoLista *lista, int id, int id_novo) {
     apontador atual = lista->primeiro->prox;
     apontador antecessor = lista->primeiro;
 
@@ -139,7 +153,8 @@ void inserirPosicao(TipoLista *lista, int id, int id_novo) {
         // Insere o novo nó antes do nó com o id dado
         antecessor->prox = novo;
 
-        printf("\n");
+
+        printf("\nTerceira impressao: \n");
         imprimir(*lista);
     } else {
         printf("Erro: o id %d não foi encontrado na lista.\n", id);
@@ -147,6 +162,36 @@ void inserirPosicao(TipoLista *lista, int id, int id_novo) {
 }
 
 
+void acrescentaItemProx(TipoLista *lista, TipoItem item, int antecessor){
+
+    apontador aux = buscar(*lista, antecessor);
+    if (aux != 0){
+        if(buscar(*lista, item.id)==0){ // verifica se o novo item não está na lista
+            apontador novo = (apontador) malloc(sizeof(celula));
+            novo->item = item;
+            novo->prox = aux ->prox;
+            aux->prox = novo;
+        }
+    }
+
+}
+
+void Trocar(TipoLista *lista, int id1, int id2){
+    if((buscar(*lista, id1)!=0) && (buscar(*lista, id1)!=0) ){// verifica se os dois itens existem
+        apontador ant1,aux1,ant2, aux2, temp;
+        ant1 = buscarAnterior(*lista, id1); // armazena a posição do anterior do id 1
+        ant2 = buscarAnterior(*lista, id2); // armazena a posição do anterior do id 2
+        aux1 = buscar(*lista, id1); // armazena a posição do id 1
+        aux2 = buscar(*lista, id2); // armazena a posição do id 2
+        temp = aux2->prox; // armazena o prox do aux 2
+
+        aux2->prox = aux1->prox;
+        ant1->prox=aux2;
+
+        aux1->prox=temp;
+        ant2->prox=aux1;
+    }
+}
 
 int main()
 {
@@ -167,13 +212,31 @@ int main()
     item.id = 4;
     inserirFinal(&lista, item);
 
+    item.id = 7;
+    inserirFinal(&lista, item);
+
+    item.id = 8;
+    inserirFinal(&lista, item);
+
+    item.id = 9;
+    inserirFinal(&lista, item);
+
     printf("Primeira impressao: \n");
     imprimir(lista);
 
-    //TrocaItem(&lista, 2,1);
-    inserirPosicao(&lista, 2, 5);
+    item.id = 5;
 
+    acrescentaItemProx(&lista, item, 3);
 
+    printf("\nSegunda impressao: \n");
+    imprimir(lista);
+
+    inserirPosicaoAnt(&lista, 4, 6);
+
+    Trocar(&lista, 9,2);
+
+    printf("\nTerceira impressao: \n");
+    imprimir(lista);
     return 0;
 }
 
