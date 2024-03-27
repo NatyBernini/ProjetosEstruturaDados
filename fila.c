@@ -36,6 +36,9 @@ void enfileirar(TipoLista *lista, TipoItem item){
         lista->ultimo = lista->ultimo->prox;
         lista->ultimo->prox = NULL;
         lista->ultimo->item = item;
+        printf("\nItem enfileirado com sucesso!\n");
+    } else {
+        printf("\nEste ID ja existe na lista!");
     }
 }
 
@@ -53,28 +56,28 @@ void desenfileirar(TipoLista *lista){
             lista->primeiro->prox = atual->prox;
             free(atual);
         }
+        printf("item desenfileirado com sucesso!\n");
+
     }
 }
 
 void zerar(TipoLista *lista){
     if(vazia(*lista)==1){
-        printf("A lista esta vazia!");
+        printf("\nA lista esta vazia!\n");
     }else{
         apontador atual, temp;
         atual = lista->primeiro->prox;
-        printf("\nTerceira impressao zerando a lista: \n");
         while(lista->primeiro->prox!=NULL){
             if(lista->primeiro->prox == lista->ultimo){
                 lista->primeiro = lista->ultimo;
                 free(atual);
-                imprimir(*lista);
+
             }else{
                lista->primeiro->prox = atual->prox;
                temp = atual;
                free(temp);
                atual = atual->prox;
-               imprimir(*lista);
-               printf("-\n");
+
            }
 
 
@@ -116,18 +119,17 @@ int main()
 
     criar(&lista);
 
-    printf("Olá, seja bem-vindo!\nNos informe por favor quantos itens sua lista terá inicialmente: ");
+    printf("OlA, seja bem-vindo!\nquantos itens sua lista tera inicialmente: ");
     scanf("%d", &qtdItem);
     if(qtdItem!=0){
        for (int i = 1; i<=qtdItem; i++){
         item.id = i;
         enfileirar(&lista, item);
         };
-        printf("Primeira impressao lista completa: \n");
-        imprimir(lista);
         printf("\n");
+        imprimir(lista);
     }else{
-        printf("Tudo bem, vamos começar com sua lista vazia.\n");
+        printf("Tudo bem, vamos comeCar com sua lista vazia.\n");
     };
 
     do{
@@ -144,16 +146,19 @@ int main()
                 scanf("%d", &idItem);
                 item.id = idItem;
                 enfileirar(&lista, item);
+                imprimir(lista);
             break;
 
             case 2:
                 printf("\n");
                 desenfileirar(&lista);
+                imprimir(lista);
             break;
 
             case 3:
                 printf("\n");
                 zerar(&lista);
+                imprimir(lista);
             break;
 
             case 4:
@@ -161,9 +166,13 @@ int main()
                 imprimir(lista);
             break;
 
+            case 0:
+
+            break;
+
             default:
                 printf("\n");
-                printf("INFORME UMA OPÇÃO VÁLIDA");
+                printf("INFORME UMA OPCAO VALIDA");
             break;
         }
 
