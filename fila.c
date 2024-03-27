@@ -39,37 +39,20 @@ void enfileirar(TipoLista *lista, TipoItem item){
     }
 }
 
-int buscar(TipoLista lista, int id){ // Função que retorna a posição do item
-    apontador aux;
-    aux = lista.primeiro->prox;
-    while(aux!=NULL){
-        if(aux->item.id == id)
-            return aux;
-        aux = aux->prox;
-    }
-    return 0;
-}
-
-void imprimir(TipoLista lista){
-    if(vazia(lista)==1){
-        printf("A lista esta vazia!!!");
-    }else{
-        apontador aux = lista.primeiro->prox;
-        while(aux!=NULL){
-            printf("[%d] ", aux->item.id);
-            aux = aux->prox;
-        }
-    }
-}
-
 void desenfileirar(TipoLista *lista){
     if(vazia(*lista)==1){
         printf("A lista esta vazia!");
     }else{
         apontador atual;
         atual = lista->primeiro->prox;
-        lista->primeiro->prox = atual->prox;
-        free(atual);
+        if (atual->prox == NULL){
+            lista->primeiro->prox = atual->prox;
+            free(atual);
+            lista->primeiro = lista->ultimo;
+        } else{
+            lista->primeiro->prox = atual->prox;
+            free(atual);
+        }
     }
 }
 
@@ -102,44 +85,89 @@ void zerar(TipoLista *lista){
     }
 }
 
+int buscar(TipoLista lista, int id){ // Função que retorna a posição do item
+    apontador aux;
+    aux = lista.primeiro->prox;
+    while(aux!=NULL){
+        if(aux->item.id == id)
+            return aux;
+        aux = aux->prox;
+    }
+    return 0;
+}
+
+void imprimir(TipoLista lista){
+    if(vazia(lista)==1){
+        printf("A lista esta vazia!!!");
+    }else{
+        apontador aux = lista.primeiro->prox;
+        while(aux!=NULL){
+            printf("[%d] ", aux->item.id);
+            aux = aux->prox;
+        }
+    }
+}
+
 int main()
 {
     TipoLista lista;
     TipoItem item;
+    int qtdItem, resposta, idItem;
 
     criar(&lista);
 
-    item.id = 1;
-    enfileirar(&lista, item);
+    printf("Olá, seja bem-vindo!\nNos informe por favor quantos itens sua lista terá inicialmente: ");
+    scanf("%d", &qtdItem);
+    if(qtdItem!=0){
+       for (int i = 1; i<=qtdItem; i++){
+        item.id = i;
+        enfileirar(&lista, item);
+        };
+        printf("Primeira impressao lista completa: \n");
+        imprimir(lista);
+        printf("\n");
+    }else{
+        printf("Tudo bem, vamos começar com sua lista vazia.\n");
+    };
 
-    item.id = 2;
-    enfileirar(&lista, item);
+    do{
+        printf("\n--------------------\n");
+        printf("  MENU DE OPERAÇÕES  \n");
+        printf("[1] enfileirar;\n[2] desenfileirar;\n[3] zerar;\n[4] imprimir;\n[0] sair;\nRESPOSTA:");
+        scanf("%d",&resposta);
+        printf("\n--------------------\n");
 
-    item.id = 3;
-    enfileirar(&lista, item);
+        switch (resposta){
+            case 1:
+                printf("\n");
+                printf("Informe o ID do item: ");
+                scanf("%d", &idItem);
+                item.id = idItem;
+                enfileirar(&lista, item);
+            break;
 
-    item.id = 4;
-    enfileirar(&lista, item);
+            case 2:
+                printf("\n");
+                desenfileirar(&lista);
+            break;
 
-    item.id = 5;
-    enfileirar(&lista, item);
+            case 3:
+                printf("\n");
+                zerar(&lista);
+            break;
 
-    item.id = 6;
-    enfileirar(&lista, item);
+            case 4:
+                printf("\nIMPRESSAO DA LISTA: \n");
+                imprimir(lista);
+            break;
 
-    item.id = 7;
-    enfileirar(&lista, item);
+            default:
+                printf("\n");
+                printf("INFORME UMA OPÇÃO VÁLIDA");
+            break;
+        }
 
-    printf("Primeira impressao lista completa: \n");
-    imprimir(lista);
-    printf("\n");
-
-    desenfileirar(&lista);
-    printf("\nSegunda impressao removendo o primeiro item: \n");
-    imprimir(lista);
-    printf("\n");
-
-    zerar(&lista);
+    }while(resposta!=0);
 
     return 0;
 }
