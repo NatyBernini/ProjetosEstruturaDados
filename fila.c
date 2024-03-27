@@ -81,15 +81,23 @@ void zerar(TipoLista *lista){
         atual = lista->primeiro->prox;
         printf("\nTerceira impressao zerando a lista: \n");
         while(lista->primeiro->prox!=NULL){
-           lista->primeiro->prox = atual->prox;
-           temp = atual;
-           free(temp);
-           atual = atual->prox;
-           imprimir(*lista);
-           printf("-\n");
+            if(lista->primeiro->prox == lista->ultimo){
+                lista->primeiro = lista->ultimo;
+                free(atual);
+                imprimir(*lista);
+            }else{
+               lista->primeiro->prox = atual->prox;
+               temp = atual;
+               free(temp);
+               atual = atual->prox;
+               imprimir(*lista);
+               printf("-\n");
+           }
+
+
         };
         //lista->primeiro->prox = atual;
-        lista->primeiro = lista->ultimo;
+
 
     }
 }
@@ -132,9 +140,6 @@ int main()
     printf("\n");
 
     zerar(&lista);
-    printf("\nQuarta impressao: \n");
-    imprimir(lista);
-
 
     return 0;
 }
