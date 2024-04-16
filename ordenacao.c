@@ -3,9 +3,9 @@
 
 
 // FUNÇÃO QUE ORDENA O VETOR EM ORDEM DECRESCENTE
-void ordenaVetorDec(int *vetor){
+void ordenaVetorDec(int *vetor,  int qtd){
     int aux;
-    for(int i=0; i<13; i++){
+    for(int i=0; i<qtd; i++){
          for(int c=0; c<=i; c++){ // percorre os elementos anteriores ao atual
             if(vetor[i]<vetor[c]){ // verifica se o elemento é menor
                 aux = vetor[i];
@@ -22,9 +22,9 @@ void ordenaVetorDec(int *vetor){
 }
 
 // FUNÇÃO QUE ORDENA O VETOR EM ORDEM CRESCENTE
-void ordenaVetorCre(int *vetor){
+void ordenaVetorCre(int *vetor, int qtd){
     int aux;
-    for(int i=0; i<13; i++){
+    for(int i=0; i<qtd; i++){
          for(int c=0; c<=i; c++){ // percorre os elementos anteriores ao atual
             if(vetor[i]>vetor[c]){ // verifica se o elemento é maior
                 aux = vetor[i];
@@ -43,33 +43,33 @@ void ordenaVetorCre(int *vetor){
 }
 
 // FUNÇÃO PARA IMPRIMIR O VETOR
-void imprimeVetor(int vetor[]){ 
-    for(int i=0; i<13; i++){ 
-            printf("%d ", vetor[i]);
+void imprimeVetor(int vetor[], int qtd){
+    for(int i=0; i<qtd; i++){
+            printf("%d\n", vetor[i]);
     }
+}
+
+
+// FUNÇÃO PARA PREENCHER O VETOR COM VALORES ALEATÓRIOS
+void preencheVetor(int *vetor, int qtd){
+    int aux;
+
+    for(int i=0;i<qtd;i++){
+        aux = rand() % qtd;
+        vetor[i] = aux;
+    }
+
 }
 
 
 int main()
 {
+    int qtd = 100;
+    int vetor[qtd];
 
-    int vetor[13];
+    preencheVetor(&vetor, qtd);
 
-    vetor[0] = 10;
-    vetor[1] = 4;
-    vetor[2] = 8;
-    vetor[3] = 7;
-    vetor[4] = 11;
-    vetor[5] = 1;
-    vetor[6] = 15;
-    vetor[7] = 3;
-    vetor[8] = 5;
-    vetor[9] = 4;
-    vetor[10] = 2;
-    vetor[11] = 12;
-    vetor[12] = 6;
+    ordenaVetorCre(&vetor, qtd);
 
-    ordenaVetorCre(&vetor);
-
-    imprimeVetor(vetor);
+    imprimeVetor(vetor, qtd);
 }
