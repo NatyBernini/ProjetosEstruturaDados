@@ -6,13 +6,13 @@
 void ordenaVetorDec(int *vetor){
     int aux;
     for(int i=0; i<13; i++){
-         for(int c=0; c<=i; c++){
-            if(vetor[i]<vetor[c]){
+         for(int c=0; c<=i; c++){ // percorre os elementos anteriores ao atual
+            if(vetor[i]<vetor[c]){ // verifica se o elemento é menor
                 aux = vetor[i];
                 vetor[i] = vetor[c];
                 vetor[c] = aux;
             }
-            if(vetor[i]>vetor[c]){
+            if(vetor[i]>vetor[c]){ // verifica se o elemento é maior
                 aux = vetor[i];
                 vetor[i] = vetor[c];
                 vetor[c] = aux;
@@ -25,14 +25,14 @@ void ordenaVetorDec(int *vetor){
 void ordenaVetorCre(int *vetor){
     int aux;
     for(int i=0; i<13; i++){
-         for(int c=0; c<=i; c++){
-            if(vetor[i]>vetor[c]){
+         for(int c=0; c<=i; c++){ // percorre os elementos anteriores ao atual
+            if(vetor[i]>vetor[c]){ // verifica se o elemento é maior
                 aux = vetor[i];
                 vetor[i] = vetor[c];
                 vetor[c] = aux;
             }
 
-            if(vetor[i]<vetor[c]){
+            if(vetor[i]<vetor[c]){ // verifica se o elemento é menor
                 aux = vetor[i];
                 vetor[i] = vetor[c];
                 vetor[c] = aux;
@@ -44,7 +44,7 @@ void ordenaVetorCre(int *vetor){
 
 // FUNÇÃO PARA IMPRIMIR O VETOR
 void imprimeVetor(int vetor[]){ 
-    for(int i=0; i<13; i++){
+    for(int i=0; i<13; i++){ 
             printf("%d ", vetor[i]);
     }
 }
@@ -71,5 +71,5 @@ int main()
 
     ordenaVetorCre(&vetor);
 
-   imprimeVetor(vetor);
+    imprimeVetor(vetor);
 }
