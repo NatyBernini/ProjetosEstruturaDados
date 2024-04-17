@@ -1,6 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// FUNÇÃO PARA TROCAR DOIS ELEMENTOS
+void swap(int* xp, int* yp) {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+
+// TROCA POR MEIO DE SELECTION SORT
+void selectionSort(int arr[], int n) {
+    int i, j, min_idx;
+    // Move a fronteira do subarray não ordenado
+    for (i = 0; i < n - 1; i++) {
+        min_idx = i;
+        // Encontra o elemento mínimo no subarray não ordenado
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min_idx]) {
+                min_idx = j;
+            }
+        }
+        // Troca o elemento mínimo encontrado com o primeiro elemento
+        swap(&arr[min_idx], &arr[i]);
+    }
+}
+
 
 // FUNÇÃO QUE ORDENA O VETOR EM ORDEM DECRESCENTE
 void ordenaVetorDec(int *vetor,  int qtd){
